@@ -69,13 +69,13 @@ boot/boot:	boot/boot.s tools/system
 	rm -f tmp.s
 	$(LD86) -s -o boot/boot boot/boot.o
 	
-run:
+run: all
 	qemu-system-i386 -drive format=raw,file=Image,index=0,if=floppy -boot a -hdb hd_oldlinux.img -m 8 -machine pc-i440fx-2.5
 
-run-curses:
+run-curses: all
 	qemu-system-i386 -display curses -drive format=raw,file=Image,index=0,if=floppy -boot a -hdb hd_oldlinux.img -m 8 -machine pc-i440fx-2.5
 	
-dump:
+dump: all
 	objdump -D --disassembler-options=intel tools/system > System.dum
 
 clean:
